@@ -1,0 +1,34 @@
+
+server:
+  port: 8047
+
+spring:
+  application:
+    name: split-table-demo
+  profiles:
+    active: dev
+  jta:
+    atomikos:
+      properties:
+        log-base-dir: ${atomikos.logdir}
+        log-base-name: ${atomikos.logname}
+
+mysql:
+  datasource:
+    oauth:
+      url: jdbc:mysql://${jdbc.oauth.url}?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true&&serverTimezone=GMT
+      username: ${jdbc.oauth.username}
+      password: ${jdbc.oauth.password}
+      minPoolSize: 3
+      maxPoolSize: 25
+      maxLifetime: 20000
+      borrowConnectionTimeout: 30
+      loginTimeout: 30
+      maintenanceInterval: 60
+      maxIdleTime: 60
+      testQuery: select 1
+nacos:
+  config:
+    server-addr: 192.168.119.128:8848
+  discovery:
+    server-addr: 192.168.119.128:8848

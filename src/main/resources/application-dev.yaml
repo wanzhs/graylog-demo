@@ -1,0 +1,12 @@
+log:
+  base_path: D:\\cdz
+
+atomikos:
+    logdir: ${log.base_path}\\atomikos\\bc-split-table-demo\\transaction-logs
+    logname: bc-split-table-demo-transaction
+
+jdbc:
+  oauth:
+    url: 192.168.2.221:3306/db_charging
+    username: wanzhs
+    password: 123456

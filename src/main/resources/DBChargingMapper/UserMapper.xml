@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.User">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_tel" property="userTel"/>
+        <result column="user_age" property="userAge"/>
+        <result column="update_dt" property="updateDt"/>
+        <result column="insert_dt" property="insertDt"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        user_id, user_name, user_tel, user_age, update_dt, insert_dt
+    </sql>
+    <insert id="insertOrUpdate">
+        insert into t_user_#{tableIndex}(user_id, user_name, user_tel, user_age)
+        values(#{param.userId},#{param.userName},#{param.userTel},#{param.userAge})
+        ON DUPLICATE KEY UPDATE
+        user_id=VALUES(user_id),
+        user_name=VALUES(user_name),
+        user_tel=VALUES(user_tel),
+        user_age=VALUES(user_age)
+    </insert>
+    <delete id="deleteUser" parameterType="java.lang.String">
+        delete from t_user_#{tableIndex}
+        where user_id=#{userId,jdbcType=VARCHAR}
+    </delete>
+    <select id="getUserList" resultType="com.example.demo.entity.User">
+        select user_id, user_name, user_tel, user_age
+        from t_user_#{tableIndex}
+    </select>
+
+</mapper>
